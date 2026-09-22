@@ -1,0 +1,205 @@
+{
+  "project": "Telecom Customer Churn - Decision Dashboard",
+  "selected_model": "Logistic Regression",
+  "selection_rule": "Highest 5-fold CV ROC-AUC on the training split; the simpler Logistic Regression is preferred when within 0.005 AUC of the best model.",
+  "decision_threshold": 0.32,
+  "threshold_rule": "Maximises F1 on out-of-fold predictions of the training split.",
+  "risk_cutoffs": {
+    "medium": 0.3,
+    "high": 0.6
+  },
+  "train_rows": 5634,
+  "test_rows": 1409,
+  "features": [
+    "tenure",
+    "MonthlyCharges",
+    "TotalCharges",
+    "n_protection_services",
+    "n_streaming_services",
+    "SeniorCitizen",
+    "Partner",
+    "Dependents",
+    "PhoneService",
+    "MultipleLines",
+    "InternetService",
+    "OnlineSecurity",
+    "OnlineBackup",
+    "DeviceProtection",
+    "TechSupport",
+    "StreamingTV",
+    "StreamingMovies",
+    "Contract",
+    "PaperlessBilling",
+    "PaymentMethod"
+  ],
+  "random_state": 42,
+  "sklearn_version": "1.8.0",
+  "trained_at": "2026-09-22 01:03 UTC",
+  "comparison": {
+    "Baseline (majority class)": {
+      "cv_roc_auc": 0.5,
+      "cv_pr_auc": 0.2653532126375577,
+      "test": {
+        "threshold": 0.5,
+        "accuracy": 0.7345635202271115,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "roc_auc": 0.5,
+        "pr_auc": 0.2654364797728886,
+        "confusion_matrix": {
+          "tn": 1035,
+          "fp": 0,
+          "fn": 374,
+          "tp": 0
+        }
+      }
+    },
+    "Logistic Regression": {
+      "cv_roc_auc": 0.8461871407320718,
+      "cv_roc_auc_std": 0.012535067666805339,
+      "cv_pr_auc": 0.6611720031416722,
+      "test": {
+        "threshold": 0.5,
+        "accuracy": 0.8026969481902059,
+        "precision": 0.6518987341772152,
+        "recall": 0.5508021390374331,
+        "f1": 0.5971014492753624,
+        "roc_auc": 0.8426076623007568,
+        "pr_auc": 0.6351777235222963,
+        "confusion_matrix": {
+          "tn": 925,
+          "fp": 110,
+          "fn": 168,
+          "tp": 206
+        }
+      }
+    },
+    "Random Forest": {
+      "cv_roc_auc": 0.8434954249064741,
+      "cv_roc_auc_std": 0.009774037926059893,
+      "cv_pr_auc": 0.658422820075953,
+      "test": {
+        "threshold": 0.5,
+        "accuracy": 0.7998580553584103,
+        "precision": 0.652317880794702,
+        "recall": 0.5267379679144385,
+        "f1": 0.5828402366863905,
+        "roc_auc": 0.8435454287116692,
+        "pr_auc": 0.6498986897690596,
+        "confusion_matrix": {
+          "tn": 930,
+          "fp": 105,
+          "fn": 177,
+          "tp": 197
+        }
+      }
+    },
+    "Gradient Boosting": {
+      "cv_roc_auc": 0.8483403120660453,
+      "cv_roc_auc_std": 0.01222148506366766,
+      "cv_pr_auc": 0.6678083030392644,
+      "test": {
+        "threshold": 0.5,
+        "accuracy": 0.8034066713981547,
+        "precision": 0.6666666666666666,
+        "recall": 0.5187165775401069,
+        "f1": 0.5834586466165413,
+        "roc_auc": 0.8460293471802424,
+        "pr_auc": 0.6612800035481152,
+        "confusion_matrix": {
+          "tn": 938,
+          "fp": 97,
+          "fn": 180,
+          "tp": 194
+        }
+      }
+    }
+  },
+  "test_metrics_default_threshold": {
+    "threshold": 0.5,
+    "accuracy": 0.8026969481902059,
+    "precision": 0.6518987341772152,
+    "recall": 0.5508021390374331,
+    "f1": 0.5971014492753624,
+    "roc_auc": 0.8426076623007568,
+    "pr_auc": 0.6351777235222963,
+    "confusion_matrix": {
+      "tn": 925,
+      "fp": 110,
+      "fn": 168,
+      "tp": 206
+    }
+  },
+  "test_metrics_tuned_threshold": {
+    "threshold": 0.32,
+    "accuracy": 0.759403832505323,
+    "precision": 0.5342465753424658,
+    "recall": 0.7299465240641712,
+    "f1": 0.6169491525423729,
+    "roc_auc": 0.8426076623007568,
+    "pr_auc": 0.6351777235222963,
+    "confusion_matrix": {
+      "tn": 797,
+      "fp": 238,
+      "fn": 101,
+      "tp": 273
+    }
+  },
+  "cleaning_log": [
+    {
+      "step": "Duplicate check",
+      "found": 0,
+      "action": "None needed",
+      "reason": "Every customerID must appear once."
+    },
+    {
+      "step": "TotalCharges type conversion",
+      "found": 11,
+      "action": "Converted text -> float; blanks set to 0.0",
+      "reason": "All 11 blank values belong to customers with tenure = 0 (not billed yet) - confirmed: True. Rows kept, not dropped."
+    },
+    {
+      "step": "Redundant categories",
+      "found": 9838,
+      "action": "'No internet service' / 'No phone service' -> 'No'",
+      "reason": "Already encoded by InternetService and PhoneService; avoids duplicate signal."
+    },
+    {
+      "step": "SeniorCitizen encoding",
+      "found": 1,
+      "action": "0/1 -> No/Yes",
+      "reason": "Consistent labels across binary columns."
+    },
+    {
+      "step": "Missing values (after cleaning)",
+      "found": 0,
+      "action": "None needed",
+      "reason": "No remaining nulls."
+    },
+    {
+      "step": "Category consistency",
+      "found": 0,
+      "action": "None needed",
+      "reason": "All categorical values match the documented schema."
+    },
+    {
+      "step": "Outlier check (IQR rule)",
+      "found": 0,
+      "action": "Kept all values",
+      "reason": "Counts {'tenure': 0, 'MonthlyCharges': 0, 'TotalCharges': 0}. Values are valid business amounts / durations, not errors."
+    },
+    {
+      "step": "Feature engineering",
+      "found": 4,
+      "action": "Added n_protection_services, n_streaming_services, auto_pay, tenure_group",
+      "reason": "Capture bundle depth, billing behaviour and lifecycle stage."
+    },
+    {
+      "step": "Rows retained",
+      "found": 7043,
+      "action": "7043 -> 7043 rows",
+      "reason": "No rows were removed."
+    }
+  ]
+}
