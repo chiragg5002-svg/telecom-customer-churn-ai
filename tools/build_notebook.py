@@ -18,7 +18,7 @@ def code(s):
 md("""# Telecom Customer Churn — Decision Dashboard
 ### IBM SkillsBuild Data Analytics with AI Academic Internship — BharatCares x AICTE
 
-**Author:** Hari
+**Author:** Chirag
 **Flow followed:** Raw data -> Clean data -> EDA -> Insights -> Prediction -> Dashboard -> Decision
 
 This notebook contains the complete, runnable implementation: data cleaning, EDA, feature
