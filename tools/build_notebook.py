@@ -437,5 +437,5 @@ left as a static notebook.
 nb['cells'] = cells
 nb['metadata'] = {'kernelspec': {'display_name': 'Python 3', 'language': 'python', 'name': 'python3'},
                   'language_info': {'name': 'python', 'version': '3.12'}}
-nbf.write(nb, 'notebooks/Hari_TelcoChurnAnalysis.ipynb')
+nbf.write(nb, 'notebooks/Chirag_TelcoChurnAnalysis_final.ipynb')
 print("notebook cells:", len(cells))
