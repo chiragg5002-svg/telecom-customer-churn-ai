@@ -195,7 +195,7 @@ const titlePage = [
     alignment: AlignmentType.CENTER,
     spacing: { before: 1200 },
     children: [
-      new TextRun({ text: "Prepared by: Hari", size: 22, bold: true }),
+      new TextRun({ text: "Prepared by: Chirag", size: 22, bold: true }),
     ],
   }),
   new Paragraph({
